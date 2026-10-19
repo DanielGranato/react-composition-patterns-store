@@ -1,5 +1,5 @@
-/* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from 'react';
+import { useFetch } from '../../hooks/useFetch';
 import type { Product } from '../../types';
 
 export const ProductsContext = createContext<{
@@ -15,12 +15,25 @@ export const ProductsContext = createContext<{
 export const ProductsProvider = ({ children }: { children: React.ReactNode }) => {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+	const { data, error, fetchData } = useFetch<Product[]>({
+		url: 'http://localhost:3001/products',
+	});
 
 	useEffect(() => {
-		fetch('http://localhost:3001/products')
-			.then((res) => res.json())
-			.then((data) => setProducts(data));
+		fetchData();
 	}, []);
+
+	useEffect(() => {
+		if (data) {
+			setProducts(data);
+		}
+	}, [data]);
+
+	useEffect(() => {
+		if (error) {
+			console.error('Error fetching products:', error);
+		}
+	}, [error]);
 
 	return (
 		<ProductsContext.Provider value={{ products, selectedProduct, setSelectedProduct }}>
