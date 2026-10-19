@@ -135,8 +135,9 @@ export default function Product() {
 							variant='add-to-cart'
 							onClick={handleAddToCart}
 							className='w-full py-4 text-lg font-semibold mt-4'
-							content='Adicionar ao carrinho'
-						/>
+						>
+							Adicionar ao carrinho
+						</Button>
 					</div>
 				</div>
 			</div>
