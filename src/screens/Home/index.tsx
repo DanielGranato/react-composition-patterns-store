@@ -4,6 +4,7 @@ import { useCategories, useProducts } from '../../context';
 import SearchInput from '../../components/SearchInput/SearchInput';
 import { useState } from 'react';
 import { useSearch } from '../../hooks/useSearch';
+import { publicUrl } from '../../utils/publicUrl';
 
 const Home = () => {
 	const navigate = useNavigate();
@@ -60,7 +61,7 @@ const Home = () => {
 						>
 							<div className='relative overflow-hidden rounded-lg shadow-md'>
 								<img
-									src={category.image}
+									src={publicUrl(category.image)}
 									alt={category.name}
 									className='w-full h-48 object-cover transition-transform group-hover:scale-110'
 								/>

@@ -2,6 +2,7 @@ import Counter from '../../components/Counter/Counter';
 import { useCart } from '../../context';
 import TrashIcon from '../../assets/trash.svg';
 import { formatPrice } from '../../utils';
+import { publicUrl } from '../../utils/publicUrl';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 
@@ -71,7 +72,7 @@ const Cart = () => {
 							key={item.id}
 							className='flex flex-col sm:flex-row gap-4 items-center justify-between w-full p-4 bg-white rounded-lg shadow-sm'
 						>
-							<img src={item.image} alt={item.name} className='w-20 h-20 object-contain' />
+							<img src={publicUrl(item.image)} alt={item.name} className='w-20 h-20 object-contain' />
 							<div className='flex flex-col gap-2 text-center sm:text-start w-full'>
 								<h3 className='text-lg text-[#0B254B] orbitron-bold'>{item.name}</h3>
 								<p className='text-sm text-[#0B254B]'>{formatPrice(item.price)}</p>

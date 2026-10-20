@@ -2,6 +2,7 @@
 import { createContext, useEffect } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import type { Category } from '../../types';
+import { apiUrl } from '../../utils/apiUrl';
 
 export const CategoriesContext = createContext<{
 	categories: Category[];
@@ -15,7 +16,7 @@ export const CategoriesProvider = ({ children }: { children: React.ReactNode }) 
 		error,
 		fetchData,
 	} = useFetch<Category[]>({
-		url: 'http://localhost:3001/categories',
+		url: apiUrl('categories'),
 		method: 'GET',
 	});
 

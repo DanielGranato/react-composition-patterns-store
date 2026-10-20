@@ -1,5 +1,6 @@
 import type { Product } from '../../types';
 import { formatPrice } from '../../utils';
+import { publicUrl } from '../../utils/publicUrl';
 
 interface ProductCardProps {
 	product: Product;
@@ -17,7 +18,7 @@ const ProductCard = ({ product, hasBorder = false, onClick }: ProductCardProps) 
 		>
 			<div className='relative overflow-hidden aspect-square'>
 				<img
-					src={product.image}
+					src={publicUrl(product.image)}
 					alt={product.name}
 					className='w-full h-full object-cover transition-transform group-hover:scale-110'
 				/>

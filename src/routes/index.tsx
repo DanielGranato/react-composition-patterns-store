@@ -5,7 +5,10 @@ import NotFound from '../screens/NotFound';
 import Product from '../screens/Product';
 import Cart from '../screens/Cart';
 
-const router = createBrowserRouter([
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const router = createBrowserRouter(
+	[
 	{
 		path: '/',
 		element: (
@@ -34,6 +37,8 @@ const router = createBrowserRouter([
 		path: '*',
 		element: <NotFound />,
 	},
-]);
+	],
+	{ basename }
+);
 
 export default router;

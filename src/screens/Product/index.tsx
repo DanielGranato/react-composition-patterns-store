@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Button from '../../components/Button/Button';
 import { useCart, useProducts } from '../../context';
 import { formatPrice } from '../../utils';
+import { apiUrl } from '../../utils/apiUrl';
+import { publicUrl } from '../../utils/publicUrl';
 import { useNavigate, useParams } from 'react-router';
 import RadioGroup from '../../components/RadioButton/RadioGroup';
 import Selector from '../../components/Selector/Selector';
@@ -30,11 +32,16 @@ export default function Product() {
 				setSelectedProduct(foundProduct);
 			} else {
 				// If not found in the list, fetch it directly
-				fetch(`http://localhost:3001/products/${id}`)
+				const url = import.meta.env.DEV ? `http://localhost:3001/products/${id}` : apiUrl('products');
+
+				fetch(url)
 					.then((res) => res.json())
 					.then((data) => {
-						setProduct(data);
-						setSelectedProduct(data);
+						const nextProduct = import.meta.env.DEV
+							? data
+							: (data as Product[]).find((item) => item.id === Number(id)) ?? null;
+						setProduct(nextProduct);
+						setSelectedProduct(nextProduct);
 					})
 					.catch(() => {
 						setProduct(null);
@@ -76,7 +83,7 @@ export default function Product() {
 					{/* Product Image Section */}
 					<div className='relative aspect-square rounded-xl overflow-hidden bg-gray-100'>
 						<img
-							src={product.image}
+							src={publicUrl(product.image)}
 							alt={product.name}
 							className='w-full h-full object-cover hover:scale-105 transition-transform duration-300'
 						/>
